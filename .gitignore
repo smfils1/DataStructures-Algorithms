@@ -3,3 +3,5 @@ String-Arithmetic/*
 !String-Arithmetic/string-problem.js
 !String-Arithmetic/string-problem.html
 
+point2d_class/*
+!point2d_class/main.cpp
