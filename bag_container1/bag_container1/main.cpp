@@ -9,7 +9,6 @@ using sfils_csc212::bag1;
 
 int main() {
 	
-
-	system("pause");
+	
 	return 0;
 }
