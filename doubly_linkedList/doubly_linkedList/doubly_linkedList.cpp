@@ -28,6 +28,11 @@ namespace sfils_csc212 {
 		return *this;//for chaining
 	}
 
+	size_t doubly_linkedList::size()
+	{
+		return number_of_nodes;
+	}
+
 	//Destructor
 	doubly_linkedList::~doubly_linkedList()
 	{
@@ -82,7 +87,7 @@ namespace sfils_csc212 {
 			number_of_nodes--;
 		}
 		else {//Case:Remove back when full and updatre state
-			node* prev_current = search_index(number_of_nodes - 1);
+			node* prev_current = current_ptr->prev;
 			prev_current->next = nullptr;
 			delete current_ptr;
 			current_ptr = prev_current;
@@ -114,6 +119,15 @@ namespace sfils_csc212 {
 			temp = previous->next;
 			temp->prev = previous;
 			number_of_nodes--;
+			/*
+			node*tmp = search_index(index + 1);//Need tmp to point to the node ypu want to remove for below to work properly
+			node* tmp2 = tmp->prev;//Save tmp's prev_ptr to use later(tmp2)
+			node* tmp3 = tmp->next;//Save tmp's next_ptr to use later(tmp3)
+			tmp3->prev = tmp2;//The prev_ptr of the node thats after the one your want to remove is set to tmp2
+			tmp2->next = tmp3;//The next_ptr of the node thats before the one your want to remove is set to tmp3
+			delete tmp;//Now delete
+			number_of_nodes--; */
+
 		}
 
 	}	
@@ -149,11 +163,23 @@ namespace sfils_csc212 {
 	//Helper copy nodes
 	void doubly_linkedList::deep_copy(const doubly_linkedList & source)
 	{//new head w/ loop to initilize it using inset function		
-		node* temp = source.head_ptr;
+		node* temp = source.head_ptr; 
 		while (temp != nullptr) {
 			insert(temp->data);
 			temp = temp->next;
 		}
+	}
+
+	doubly_linkedList::iterator  doubly_linkedList::begin() {
+
+		return iterator(head_ptr);
+
+	}
+
+	doubly_linkedList::iterator  doubly_linkedList::end() {
+
+		return iterator(nullptr);
+
 	}
 
 	std::ostream & operator<<(std::ostream & out, const doubly_linkedList& container)
@@ -172,12 +198,39 @@ namespace sfils_csc212 {
 		}
 		return out;
 	}
-
-	doubly_linkedList::iterator& doubly_linkedList::begin() {
-		return new iterator(head_ptr);
+	
+	int & doubly_linkedList::iterator::operator*() const
+	{
+		return current_itr->data;
 	}
-	doubly_linkedList::iterator& doubly_linkedList::end() {
-
-		return new iterator(current);
+	doubly_linkedList::iterator & doubly_linkedList::iterator::operator++()
+	{
+		current_itr = current_itr->next;
+		return *this;
 	}
+	doubly_linkedList::iterator & doubly_linkedList::iterator::operator++(int i)
+	{
+		iterator temp =*this;
+		++(*this);
+		return temp;
+	}
+	bool doubly_linkedList::iterator::operator==(const iterator & right) const
+	{
+		return current_itr == right.current_itr;
+
+	}
+	 
+	bool doubly_linkedList::iterator::operator!=(const iterator & right) const
+	{
+		return current_itr != right.current_itr;
+	}
+	//
+//doubly_linkedList::begin() {
+//		return new iterator(head_ptr);
+//	}
+//	doubly_linkedList::iterator& doubly_linkedList::end() {
+//
+//		return new iterator(current);
+//	}
+//
 }
