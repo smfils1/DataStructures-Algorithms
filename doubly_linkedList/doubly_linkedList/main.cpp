@@ -13,32 +13,5 @@ Because the get_data(index) function requires searching which is O(n) and an ite
 
 int main() {
 
-	doubly_linkedList a;
-	a.insert(1);
-	a.insert(2);
-	a.insert(3);
-	a.insert(2);
-	a.insert(2);
-	a.insert(2);
-	a.insert(2);
-	a.insert(2);
-	a.insert(9,5);
-	
-	for (doubly_linkedList::iterator i = a.begin(); i!= a.end(); ++i ) {
-		*i = 0;
-	}
-
-	a.remove(2);
-	
-	//a.remove();
-	doubly_linkedList b;
-	b= a;
-	b.insert(2);
-
-	cout << a << endl;
-	//cout << b<< endl;
-
-
-
 	return 0;
 }
