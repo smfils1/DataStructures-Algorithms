@@ -78,12 +78,16 @@ namespace sfils_csc212 {
 			node*temp = head_ptr;
 			head_ptr = head_ptr->next;
 			delete temp;
+			number_of_nodes--;
+
 		}
 		else {//Middle case
 			node*previous = search_index(index);
 			node*temp = previous->next;
 			previous->next = temp->next;
 			delete temp;
+			number_of_nodes--;
+
 		}
 
 	}
